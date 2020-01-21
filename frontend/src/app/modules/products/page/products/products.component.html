@@ -1,0 +1,35 @@
+<div>
+  <div class="button-row">
+    <div *ngIf="isLogged()" class="logged" >
+      <i class="material-icons" title="Check your Shop Cart" (click)="login()" >shopping_cart</i>
+      <i class="material-icons" title="Log out to your account" (click)="logout()" >account_box</i>
+    </div>
+    <div *ngIf="!isLogged()">
+      <i class="material-icons" title="Check your Shop Cart" (click)="login()" >shopping_cart</i>
+      <i class="material-icons" title="Log in to your account" (click)="login()" >account_box</i>
+    </div>
+</div>
+<div class="example-container mat-elevation-z8">
+  <div  class="products">
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+      <mat-card *ngFor="let product of data">
+        <mat-card-header>
+          <mat-card-title>
+            <h3>{{ product.prodName }}</h3>
+          </mat-card-title>
+        </mat-card-header>
+          <img class="image" mat-card-image [src]="product.prodImage">
+        <mat-card-content>
+          <p>{{ product.prodDesc }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          {{ product.prodPrice | currency:'EUR ':'symbol':'1.2-2' }}
+          <i class="material-icons" (click)="1" title="Add to Cart">add_shopping_cart</i>
+        </mat-card-actions>
+      </mat-card>
+  </div>
+</div>
+</div>
+   

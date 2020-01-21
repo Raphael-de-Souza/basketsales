@@ -1,10 +1,10 @@
 package com.sales.basket.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.sales.basket.models.Product;
+import com.sales.basket.models.Products;
 
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface ProductRepository extends MongoRepository<Products, String> {
 	
 	@Override
-    void delete(Product deleted);
+    void delete(Products deleted);
 }

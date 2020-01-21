@@ -25,7 +25,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtTokenProvider {
-
+	
 	@Value("${security.jwt.token.secret-key:secret}")
     private String secretKey = "secret";
 
@@ -81,5 +81,4 @@ public class JwtTokenProvider {
             throw new JwtException("Expired or invalid JWT token");
         }
     }
-	
 }

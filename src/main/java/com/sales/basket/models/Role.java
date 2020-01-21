@@ -1,8 +1,6 @@
 package com.sales.basket.models;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -11,10 +9,9 @@ import lombok.Data;
 public @Data class Role {
 	
 	@Id
-	@Indexed(unique = true, direction = IndexDirection.DESCENDING)
-	private Long id;
+    //@Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+	private String id;
 	
-	private String role;
-    
+	private String role;   
 
 }

@@ -5,13 +5,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;;
 
+
+
 @Document(collection = "products")
-public @Data class Product {
+public @Data class Products {
 	
 	@Id
-	private Long id;
-	private String nome;
-	private Double valor;
+    private String id;
+	private String prodName;
+	private String prodDesc;
+	private Double prodPrice;
+	private String prodImage;
 	
-
 }

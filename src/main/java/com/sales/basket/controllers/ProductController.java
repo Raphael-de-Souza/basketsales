@@ -1,29 +1,28 @@
 package com.sales.basket.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sales.basket.models.Product;
-import com.sales.basket.repositories.ProductRepository;
+import com.sales.basket.models.Products;
+import com.sales.basket.services.ProductService;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
 @RestController
 public class ProductController {
 
-	 @Autowired
-	    ProductRepository productRepository;
+    @Autowired
+    ProductService productService;
 
-	    @RequestMapping(method = RequestMethod.GET, value = "/products")
-	    public Iterable<Product> product() {
-	        return productRepository.findAll();
-	    }
-	
+    /**
+	 * Get Products.
+	 * @return List<Product>
+	 */
+    @RequestMapping(method = RequestMethod.GET, value = "/products")
+    public Iterable<Products> product() {
+        return productService.findAll();
+    }
 }

@@ -20,8 +20,9 @@ import com.sales.basket.models.User;
 import com.sales.basket.repositories.RoleRepository;
 import com.sales.basket.repositories.UserRepository;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
-	
+
 	@Autowired
     private UserRepository userRepository;
 
@@ -67,6 +68,5 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
-    }
-	
+    }	
 }
