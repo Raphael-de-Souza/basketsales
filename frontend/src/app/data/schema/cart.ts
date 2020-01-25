@@ -1,3 +1,7 @@
+/**
+Defines the properties of a cart, including their items whith is a vector of Products and their respective quantities.
+*/
+
 import { Product } from './product';
 import { User } from './User';
 

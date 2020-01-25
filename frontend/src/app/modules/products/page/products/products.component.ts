@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Product } from '@app/data/schema/product';
 import { ProductService } from '@app/data/service/product.service';
-import { AuthService } from '@app/core/service/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -17,8 +14,7 @@ export class ProductsComponent implements OnInit {
   isLoadingResults = true;
   cartTotal = 1;
 
-  constructor(private productService: ProductService, private authService: AuthService, private router: Router) { }
-
+  constructor(private productService: ProductService) { }
   ngOnInit() {
     this.getProducts();
   }
@@ -33,19 +29,5 @@ export class ProductsComponent implements OnInit {
       console.log(err);
       this.isLoadingResults = false;
     });
-}
-
-  logout() {    
-    localStorage.removeItem('token');
-    location.reload();
-  }
-
-  login() {
-    localStorage.removeItem('token');
-    this.router.navigate(['login']);
-  }
-
-  isLogged(): Boolean {
-    return this.authService.isLoggedIn;
   }
 }

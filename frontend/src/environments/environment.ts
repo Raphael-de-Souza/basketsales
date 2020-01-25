@@ -2,8 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+/** 
+The development environment config contains variables required to run the application in development.
+
+Environment config is accessed by importing the environment object into any Angular service or component 
+with the line import { environment } from '@environments/environment' and accessing properties on the environment object, 
+see the user service for an example.
+*/
+
+
 export const environment = {
-  production: false
+	production: false,
+	apiUrl: 'http://localhost:8080'
 };
 
 /*

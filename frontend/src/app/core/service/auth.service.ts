@@ -1,21 +1,50 @@
+/**
+Used to login & logout of the Angular app, it notifies other components when the user logs in & out, 
+allows access to the currently logged in user.
+
+RxJS Subjects and Observables are used to store the current user object 
+and notify other components when the user logs in and out of the app. 
+Angular components can subscribe() to the public currentUser: Observable property to be notified of changes, 
+and notifications are sent when the this.currentUserSubject.next() method is called in the login() and logout() methods, 
+passing the argument to each subscriber. The RxJS BehaviorSubject is a special type of Subject 
+that keeps hold of the current value and emits it to any new subscribers as soon as they subscribe, 
+while regular Subjects don't store the current value and only emit values that are published after a subscription is created. 
+For more info on communicating between components with RxJS Observables see this post: https://jasonwatmore.com/post/2019/06/21/angular-8-communicating-between-components-with-observable-subject.
+
+The login() method sends the user credentials to the API via an HTTP POST request for authentication. 
+If successful the user object including a JWT auth token are stored in localStorage 
+to keep the user logged in between page refreshes. The user object is then published to all subscribers 
+with the call to this.currentUserSubject.next(user);.
+
+The constructor() of the service initialises the currentUserSubject with the currentUser object from localStorage 
+which enables the user to stay logged in between page refreshes or after the browser is closed. 
+The public currentUser property is then set to this.currentUserSubject.asObservable(); 
+which allows other components to subscribe to the currentUser Observable but doesn't allow them to publish to the currentUserSubject, 
+this is so logging in and out of the app can only be done via the authentication service.
+
+The currentUserValue getter allows other components an easy way to get the value of the currently logged in user 
+without having to subscribe to the currentUser Observable.
+
+The logout() method removes the current user object from local storage and publishes null to the currentUserSubject 
+to notify all subscribers that the user has logged out.
+
+NOTE: If you don't like the idea of storing the current user details in local storage, 
+all you need to do is change the 3 references to localStorage in this file. 
+Other options are session storage, cookies, or you could simply not store the user details in the browser, 
+although be aware that with this last option that the user will be automatically logged out if they refresh the page.
+*/
+
 import { Injectable } from '@angular/core';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
+import { environment } from '@environments/environment'
 import { User } from '@app/data/schema/user';
 
-const apiUrl = 'http://localhost:8080/api/auth';
+@Injectable({ providedIn: 'root' })
 
-@Injectable({
-  providedIn: 'root'
-})
 export class AuthService {
-
-  // isLoggedIn = false;
-  // redirectUrl: string;
-
+  
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -28,12 +57,12 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string) {
-      return this.http.post<any>(apiUrl + '/login', { username, password })
-          .pipe(
-            tap(user => {
+  login(email: string, password: string) {
+		
+      return this.http.post<any>(environment.apiUrl + '/api/auth/login', { email, password })
+          .pipe(map(user => {
               // login successful if there's a jwt token in the response
-              if (user && user.token) {
+              if (user && user.token) { 
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
                   localStorage.setItem('currentUser', JSON.stringify(user));
                   this.currentUserSubject.next(user);
@@ -49,11 +78,11 @@ export class AuthService {
   }
 
   register(data: any): Observable<any> {
-    return this.http.post<any>(apiUrl + '/register', data)
-      .pipe(
-        tap(_ => this.log('login')),
-        catchError(this.handleError('login', []))
-      );
+  return this.http.post<any>(environment.apiUrl + 'register', data)
+    .pipe(
+      tap(_ => this.log('login')),
+      catchError(this.handleError('login', []))
+    );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

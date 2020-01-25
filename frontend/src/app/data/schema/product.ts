@@ -1,3 +1,6 @@
+/**
+Defines the properties of a product.
+*/
 export class Product {
     id: string;
     prodName: string;

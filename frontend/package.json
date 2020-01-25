@@ -1,9 +1,13 @@
 {
-  "name": "frontend",
-  "version": "0.0.0",
+  "name": "Basket Sales App",
+  "version": "0.0.5",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/cornflourblue/angular-8-role-based-authorization-example.git"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve",	
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
