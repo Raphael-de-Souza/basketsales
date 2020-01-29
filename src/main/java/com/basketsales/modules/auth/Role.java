@@ -1,4 +1,4 @@
-package com.sales.basket.models;
+package com.basketsales.modules.auth;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +11,6 @@ public @Data class Role {
 	@Id
     //@Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
 	private String id;
-	
-	private String role;   
+	private String roleName;   
 
 }

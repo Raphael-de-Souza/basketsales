@@ -1,4 +1,4 @@
-package com.sales.basket.configs;
+package com.basketsales.configs;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.sales.basket.services.CustomUserDetailsService;
+import com.basketsales.modules.auth.*;
 
 @Configuration
 @EnableWebSecurity
@@ -37,11 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable().csrf().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers("/api/auth/login").permitAll().antMatchers("/api/auth/register").permitAll()
-                //.antMatchers("/api/products/**").hasAuthority("ADMIN").anyRequest().authenticated().and().csrf()
-                .antMatchers("/api/products/**").permitAll().anyRequest().authenticated().and().csrf()
-                .disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
-                .apply(new JwtConfigurer(jwtTokenProvider));
+                .antMatchers("/api/auth/login").permitAll()
+                .antMatchers("/api/auth/register").permitAll()
+                .antMatchers("/api/auth/roles").permitAll()
+                .antMatchers("/api/products").permitAll()
+                //.antMatchers("/api/products/**").hasAuthority("ADMIN").anyRequest().authenticated()
+                .and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint())
+                .and().apply(new JwtConfigurer(jwtTokenProvider));
         http.cors();   
     }
 
@@ -69,6 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService mongoUserDetails() {
-        return new CustomUserDetailsService();
+        return new UserService();
     }
 }

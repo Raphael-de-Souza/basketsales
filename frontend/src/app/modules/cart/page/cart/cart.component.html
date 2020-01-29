@@ -1,0 +1,61 @@
+<div class="example-container">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="mat-elevation-z8" *ngIf="!isLoadingResults">
+    <table mat-table [dataSource]="cart.cartItems" class="example-table">
+
+      <!-- Product Image -->
+      <ng-container matColumnDef="prodImage">
+        <th mat-header-cell *matHeaderCellDef>Product Image</th>
+        <td mat-cell *matCellDef="let row"><img class="img" src="{{row.product.prodImage}}"></td>
+      </ng-container>
+      
+      <!-- Product Name -->
+      <ng-container matColumnDef="prodName">
+        <th mat-header-cell *matHeaderCellDef>Product Name</th>
+        <td mat-cell *matCellDef="let row">{{row.product.prodName}}</td>
+      </ng-container>
+
+	  <!-- Product prodDesc -->
+      <ng-container matColumnDef="prodDesc">
+        <th mat-header-cell *matHeaderCellDef>Product Description</th>
+        <td mat-cell *matCellDef="let row">{{row.product.prodDesc}}</td>
+      </ng-container>
+
+      <!-- Unit price -->
+      <ng-container matColumnDef="prodPrice">
+        <th mat-header-cell *matHeaderCellDef>Unit price</th>
+        <td mat-cell *matCellDef="let row">{{row.product.prodPrice | currency:'EUR ':'symbol':'1.2-2'}}</td>
+      </ng-container>
+      
+      <!-- Quantity -->
+      <ng-container matColumnDef="prodQuant">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let row; let i = index;">
+        		<input type='number' class="quantity" onKeyDown="return false" (click)="addQuantity(i)" value="{{ row.quantity }}" id="{{ i }}" min="0" max="100" />
+    	</td>
+      </ng-container>
+      
+	  <!-- Total Price -->
+      <ng-container matColumnDef="prodTotPrice">
+        <th mat-header-cell *matHeaderCellDef>Total Price</th>
+        <td mat-cell *matCellDef="let row">{{row.quantity * row.product.prodPrice | currency:'EUR ':'symbol':'1.2-2'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+    <div class="mat-table button-row">
+    	<div>
+    	 	<a mat-flat-button color="primary" routerLink="/products">Back</a>
+	  		<a mat-flat-button color="primary" (click)="checkOut()">Checkout</a>
+  		</div>
+	  	<div class="total mat-cell example-table mat-table">
+		  	<div>TOTAL SHOPPING</div>
+	  		<div>{{ totalCart | currency:'EUR ':'symbol':'1.2-2' }}</div>
+  		</div>
+    </div>
+</div>

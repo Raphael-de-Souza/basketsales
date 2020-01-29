@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ProductsComponent } from '@app/modules/products/page/products/products.component';
+import { CartComponent } from '@app/modules/cart/page/cart/cart.component'
 import { LoginComponent } from '@app/modules/auth/page/login/login.component';
 import { RegisterComponent } from '@app/modules/auth/page/register/register.component';
 import { AdminComponent } from '@app/modules/admin/page/admin/admin.component'
@@ -15,14 +16,19 @@ const routes: Routes = [
     {
       path: 'products',
       component: ProductsComponent,
-	  //canActivate: [AuthGuard],
       data: { title: 'List of Products' }
+    },
+	{
+      path: 'cart',
+      component: CartComponent,
+	  canActivate: [AuthGuard],
+      data: { title: 'Products in Cart' }
     },
 	{
         path: 'admin',
         component: AdminComponent,
-        ///canActivate: [AuthGuard],
-        data: { roles: [Role.Admin] }
+        canActivate: [AuthGuard],
+        //data: { roles: [Role.Admin] }
     },
     {
       path: 'login',
@@ -33,7 +39,12 @@ const routes: Routes = [
       path: 'register',
       component: RegisterComponent,
       data: { title: 'Register' }
-    }
+    },
+	{
+      path: '**',
+      redirectTo: 'products',
+      pathMatch: 'full'
+    },
   ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

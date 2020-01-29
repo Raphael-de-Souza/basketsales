@@ -1,8 +1,4 @@
 /* Structure */
-.container {
-    padding: 5px;
-}
-
 .example-container {
     width: 100%;
     position: relative;
@@ -42,31 +38,6 @@ mat-card-content {
     text-align: center;
 }
 
-.button-row{
-    position: fixed;
-    width: 100%;
-    background-color: cadetblue;
-    text-align: right;
-    z-index:10;
-    padding-top: 2px;
-    right: 0px;
-    padding-right: 3px;
-    height: fit-content;
-}
-
-.topBar{
-    position: fixed;
-    color: primary;
-    justify-content: space-between;
-    z-index:10;
-    right: 15px;
-    left: 25px;
-}
-
-span {
-    padding-right: 1rem;
-}
-
 mat-card-actions {
     width: 100%;
     display: flex;
@@ -91,46 +62,4 @@ mat-card-actions {
 .material-icons:hover {
     color: darkmagenta;
     cursor: pointer;
-}
-
-
-
-
-
-
-
-
-
-
-.mdc-drawer {
-  position: inherit;
-}
-
-.mdc-drawer-scrim {
-  display: none;
-  visibility: hidden;
-  background-color: rgba(0, 0, 0, 0.32);
-  z-index: 7;
-}
-
-.mdc-drawer__header {
-  display: none;
-}
-
-// Mobile
-@media (max-width: 600px) {
-  .mdc-drawer {
-    z-index: 10;
-    padding-top: 0;
-    position: fixed;
-  }
-
-  .mdc-drawer-scrim {
-    visibility: visible;
-  }
-  
-  .mdc-drawer__header {
-    display: block;
-  }
-
 }

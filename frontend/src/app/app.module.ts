@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { ProductsComponent } from '@app/modules/products/page/products/products.component';
 import { LoginComponent } from '@app/modules/auth/page/login/login.component';
 import { RegisterComponent } from '@app/modules/auth/page/register/register.component';
-import { CartComponent } from '@app/cart/cart.component';
+import { CartComponent } from '@app/modules/cart/page/cart/cart.component';
 import { AdminComponent } from '@app/modules/admin/page/admin/admin.component'
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -28,6 +28,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatToolbarModule,
+  MatSelectModule,
   MatCardModule,
   MatFormFieldModule } from '@angular/material';
 
@@ -56,7 +57,8 @@ import {
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatToolbarModule
+    MatToolbarModule,
+	MatSelectModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
 			  {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}

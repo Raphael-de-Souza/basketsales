@@ -1,4 +1,4 @@
-package com.sales.basket.services;
+package com.basketsales.modules.auth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,19 +15,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.sales.basket.models.Role;
-import com.sales.basket.models.User;
-import com.sales.basket.repositories.RoleRepository;
-import com.sales.basket.repositories.UserRepository;
-
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
 	@Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
@@ -39,8 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        //Role userRole = roleService.findByRoleName(user.getRoles());
+        //user.setRoles(user.getRoles());
         userRepository.save(user);
     }
 
@@ -59,7 +54,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         userRoles.forEach((role) -> {
-            roles.add(new SimpleGrantedAuthority(role.getRole()));
+            roles.add(new SimpleGrantedAuthority(role.getRoleName()));
         });
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);

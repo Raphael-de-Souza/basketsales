@@ -5,9 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '@environments/environment'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProductService {
 
   constructor(private http: HttpClient) { }
@@ -17,7 +15,7 @@ export class ProductService {
       .pipe(
         tap(_ => this.log('fetched Products')),
         catchError(this.handleError('getProducts', []))
-      );
+      ); 
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

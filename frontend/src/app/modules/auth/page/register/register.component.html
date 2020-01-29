@@ -6,28 +6,39 @@
   <mat-card class="example-card">
     <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(registerForm.value)">
       <mat-form-field class="example-full-width">
-        <input matInput type="fullName" placeholder="Full Name" formControlName="fullName"
+        <input matInput type="fullName" placeholder="Full Name" formControlName="fullName" 
                 [errorStateMatcher]="matcher">
         <mat-error>
-          <span *ngIf="!registerForm.get('user.fullName').valid && registerForm.get('user.fullName').touched">Please enter your Full Name</span>
+          <span *ngIf="!registerForm.get('fullName').valid && registerForm.get('fullName').touched">Please enter your Full Name</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput type="email" placeholder="Email" formControlName="email"
+        <input matInput type="email" placeholder="Email" formControlName="email" 
                [errorStateMatcher]="matcher">
         <mat-error>
-          <span *ngIf="!registerForm.get('user.email').valid && registerForm.get('user.email').touched">Please enter your email</span>
+          <span *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched">Please enter your email</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput type="password" placeholder="Password" formControlName="password"
+        <input matInput type="password" placeholder="Password" formControlName="password" 
                [errorStateMatcher]="matcher">
         <mat-error>
-          <span *ngIf="!registerForm.get('user.password').valid && registerForm.get('user.password').touched">Please enter your password</span>
+          <span *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">Please enter your password</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+       	<mat-select formControlName="roles" placeholder="Credentials" multiple>
+   			<mat-option *ngFor="let role of data" [value]="role">
+      			{{role.roleName}}
+    		</mat-option>
+  		</mat-select>
+        <mat-error>
+          <span *ngIf="!registerForm.get('roles').valid && registerForm.get('roles').touched">Please select the role</span>
         </mat-error>
       </mat-form-field>
       <div class="button-row">
         <button type="submit" [disabled]="!registerForm.valid" mat-flat-button color="primary">Register</button>
+        <button mat-flat-button color="primary" routerLink="/login">Login</button>
       </div>
     </form>
   </mat-card>

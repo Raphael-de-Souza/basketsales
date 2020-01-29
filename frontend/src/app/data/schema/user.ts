@@ -7,9 +7,10 @@ import { Role } from "./role";
 
 export class User {
     id: string;
-    fullName: string;
-    email: string;
-    password: string;
-    role: Role;
+	email: string;
+	password: string;    
+	fullName: string;
+	enabled: boolean;
+    roles: [Role];
     token?: string;
 }

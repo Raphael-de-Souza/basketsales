@@ -3,7 +3,8 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { AuthService } from '@app/core/service/auth.service';
 import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { User } from '@app/data/schema/user';
+import { Role } from '@app/data/schema/role';
+import { RoleService } from '@app/data/service/role.service';
 
 @Component({
   selector: 'app-register',
@@ -16,16 +17,23 @@ export class RegisterComponent implements OnInit {
   fullName = '';
   email = '';
   password = '';
+  data: Role[];
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, 
+			  private router: Router, 
+			  private authService: AuthService, 
+			  private roleService: RoleService) {
+				this.getRoles();
+			 }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       fullName : [null, Validators.required],
       email : [null, Validators.required],
-      password : [null, Validators.required]
+      password : [null, Validators.required],
+	  roles : [null, Validators.required]
     });
   }
 
@@ -37,6 +45,19 @@ export class RegisterComponent implements OnInit {
         console.log(err);
         alert(err.error);
       });
+  }
+
+  getRoles(): void {
+	
+    this.roleService.getAllRoles()
+    .subscribe(roles => {
+      this.data = roles;
+      console.log(this.data);
+      this.isLoadingResults = false;
+    }, err => {
+      console.log(err);
+      this.isLoadingResults = false;
+    });
   }
 
 }

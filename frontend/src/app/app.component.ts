@@ -15,6 +15,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/service/auth.service';
 import { User, Role } from '@app/data/schema';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -24,12 +25,13 @@ import { User, Role } from '@app/data/schema';
 export class AppComponent {
 	title = 'frontend';
   	currentUser: User;
+	
 	constructor(private router: Router,	private authService: AuthService) {
 		this.authService.currentUser.subscribe(x => this.currentUser = x);
     }
 
     get isAdmin() {
-        return this.currentUser && this.currentUser.role === Role.Admin;
+        return this.currentUser; // && this.currentUser.roles === Role.Admin;
     }
 
     logout() {
@@ -43,5 +45,10 @@ export class AppComponent {
 	
 	login () {
 		this.router.navigate(['/login']);
+	}
+	
+	isLoginPage() {
+		return window.location.href.includes('login') 
+		    || window.location.href.includes('register');
 	}
 }

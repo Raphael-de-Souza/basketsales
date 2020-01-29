@@ -15,7 +15,7 @@
         </mat-card-content>
         <mat-card-actions>
           {{ product.prodPrice | currency:'EUR ':'symbol':'1.2-2' }}
-          <i class="material-icons" (click)="1" title="Add to Cart">add_shopping_cart</i>
+          <i class="material-icons" (click)=add(product) title="Add to Cart">add_shopping_cart</i>
         </mat-card-actions>
       </mat-card>
   </div>

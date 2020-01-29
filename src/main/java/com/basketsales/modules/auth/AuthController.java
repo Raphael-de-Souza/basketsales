@@ -1,4 +1,4 @@
-package com.sales.basket.controllers;
+package com.basketsales.modules.auth;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sales.basket.configs.JwtTokenProvider;
-import com.sales.basket.models.User;
-import com.sales.basket.repositories.UserRepository;
-import com.sales.basket.services.CustomUserDetailsService;
+import com.basketsales.configs.JwtTokenProvider;
+import com.mongodb.util.JSON;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -34,21 +33,23 @@ public class AuthController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    UserRepository users;
+    UserService users;
 
     @Autowired
-    private CustomUserDetailsService userService;
+    private UserService userService;
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthBody data) {
         try {
-            String username = data.getEmail();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtTokenProvider.createToken(username, this.users.findByEmail(username).getRoles());
+            String email = data.getEmail();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.getPassword()));
+            String token = jwtTokenProvider.createToken(email, this.users.findUserByEmail(email).getRoles());
+            String fullName = this.users.findUserByEmail(email).getFullName();
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
+            model.put("email", email);
             model.put("token", token);
+            model.put("fullName", fullName);
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");

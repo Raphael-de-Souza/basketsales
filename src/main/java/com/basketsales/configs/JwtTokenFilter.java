@@ -1,4 +1,4 @@
-package com.sales.basket.configs;
+package com.basketsales.configs;
 
 import java.io.IOException;
 

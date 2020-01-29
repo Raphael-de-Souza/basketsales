@@ -1,4 +1,4 @@
-package com.sales.basket.models;
+package com.basketsales.modules.auth;
 
 import java.util.Set;
 
@@ -18,7 +18,7 @@ public @Data class User {
     private String email;
     
     private String password;
-    private String fullname;
+    private String fullName;
     private boolean enabled;
     
     @DBRef

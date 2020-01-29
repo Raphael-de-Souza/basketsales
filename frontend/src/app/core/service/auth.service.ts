@@ -78,7 +78,7 @@ export class AuthService {
   }
 
   register(data: any): Observable<any> {
-  return this.http.post<any>(environment.apiUrl + 'register', data)
+  return this.http.post<any>(environment.apiUrl + '/api/auth/register', data)
     .pipe(
       tap(_ => this.log('login')),
       catchError(this.handleError('login', []))

@@ -1,14 +1,12 @@
-package com.sales.basket.models;
+package com.basketsales.modules.product;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;;
 
-
-
 @Document(collection = "products")
-public @Data class Products {
+public @Data class Product {
 	
 	@Id
     private String id;

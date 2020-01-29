@@ -1,7 +1,6 @@
-package com.sales.basket.repositories;
+package com.basketsales.modules.auth;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import com.sales.basket.models.User;
 
 public interface UserRepository extends MongoRepository<User, String> {
 

@@ -5,28 +5,32 @@
 <!-- The admin link is only displayed for users in the Admin role by using the isAdmin getter in an *ngIf directive.  -->
 <!-- The logout link calls the logout() method of the app component on click. -->
 
-<div>
-	<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-	    <div class="navbar-nav">
-	        <a class="nav-item nav-link" routerLink="/">Home</a>
-	        <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin</a>
-	        <a class="nav-item nav-link" (click)="logout()">Logout</a>
-        </div>
-	    <div class="navbar-nav button-row logged">
-		    <a class="nav-item nav-link material-icons" title="Check your Shop Cart" (click)="login()" >shopping_cart</a>
-		    <a class="nav-item nav-link material-icons" title="{{isLogged() ? 'Log in to your account' : 'Log out to your account' }}"  (click)="logout()" >account_box</a>
-	    </div>
-	</nav>
-	
-	<!-- main app container -->
-	
-	    <router-outlet></router-outlet>
 
-	
-	<!-- credits -->
-	<div class="text-center mt-4">
-	    <p>
-	        <a href="#" target="_top">Basket Sales App</a>
-	    </p>
-	</div>
+	<!-- main app container -->
+<meta charset="utf-8">	
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="!isLoginPage()">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+    <div class="navbar-nav">
+    	 <a style="color: white; cursor: context-menu;">{{ this.currentUser ? 'Olá Sr(a) '+this.currentUser.fullName : '' }}</a> 
+    </div>
+    <div class="navbar-nav button-row {{currentUser ? 'logged' : ''}}">
+	    <a class="nav-item nav-link material-icons" title="Check your Shop Cart" routerLink="/cart" >shopping_cart</a>
+	    <a class="nav-item nav-link material-icons" title="{{currentUser ? 'Log out to your account' : 'Log in to your account' }}"  (click)="logout()" >account_box</a>
+    </div>
+</nav>
+<div class="container">
+    <router-outlet></router-outlet>
+   </div>
+
+
+<!-- credits -->
+<div class="text-center mt-4">
+    <p>
+        <a href="#" target="_top">Basket Sales App</a>
+    </p>
 </div>
+

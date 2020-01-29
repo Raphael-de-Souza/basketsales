@@ -1,4 +1,4 @@
-package com.sales.basket.services;
+package com.basketsales.modules.product;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,10 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import com.sales.basket.models.Products;
-import com.sales.basket.repositories.ProductRepository;
-
 @Service
 public class ProductService {
     
@@ -18,22 +14,22 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional
-    public List<Products> findAll() {
+    public List<Product> findAll() {
     	return productRepository.findAll();
     }
     
     @Transactional
-    public Optional<Products> findbyId(final String productId) {
+    public Optional<Product> findbyId(final String productId) {
     	return productRepository.findById(productId);
     }
     
     @Transactional
-    public void deleteProduct(final Products product) {
+    public void deleteProduct(final Product product) {
         productRepository.delete(product);
     }
     
     @Transactional
-    public void saveProduct(final Products product) {
+    public void saveProduct(final Product product) {
         productRepository.save(product);
     }
 }

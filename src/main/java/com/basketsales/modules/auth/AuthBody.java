@@ -1,4 +1,4 @@
-package com.sales.basket.controllers;
+package com.basketsales.modules.auth;
 
 import lombok.Data;
 

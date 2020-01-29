@@ -1,4 +1,4 @@
-package com.sales.basket.configs;
+package com.basketsales.configs;
 
 import java.util.Base64;
 import java.util.Date;
@@ -14,8 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.sales.basket.models.Role;
-import com.sales.basket.services.CustomUserDetailsService;
+import com.basketsales.modules.auth.*;
+
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -33,7 +33,7 @@ public class JwtTokenProvider {
     private long validityInMilliseconds = 3600000; // 1h
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private UserService userDetailsService;
 
     @PostConstruct
     protected void init() {

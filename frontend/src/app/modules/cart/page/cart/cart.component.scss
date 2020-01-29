@@ -1,0 +1,98 @@
+.img {
+	width: 50px;
+}
+
+.button-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	min-width: 483px;
+}
+
+
+/* Structure */
+.example-container {
+    width: 100%;
+    position: relative;
+    padding: 5px;
+	padding-top: 40px;
+}
+
+table {
+    width: 100%;
+}
+
+th.mat-header-cell {
+    text-align: center;
+}
+
+td.mat-cell.cdk-column-prodName.mat-column-prodName {
+    text-align: center;
+}
+td.mat-cell.cdk-column-prodQuant.mat-column-prodQuant {
+    text-align: center;
+}
+td.mat-cell.cdk-column-prodImage.mat-column-prodImage {
+    text-align: center;
+}
+td.mat-cell.cdk-column-prodDesc.mat-column-prodDesc {
+    text-align: center;
+}
+td.mat-cell.cdk-column-prodPrice.mat-column-prodPrice {
+    padding-left: 30px;
+}
+td.mat-cell.cdk-column-prodTotPrice.mat-column-prodTotPrice {
+    padding-left: 30px;
+}
+.example-loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-rate-limit-reached {
+    color: #980000;
+    max-width: 360px;
+    text-align: center;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+    max-width: 64px;
+}
+
+.mat-column-created {
+    max-width: 124px;
+}
+
+.mat-flat-button {
+    margin: 5px;
+}
+
+.quantity {
+	width: 43px;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+input[type=number] {
+  cursor: context-menu;
+}
+
+.total{
+	display: flex;
+	flex-direction: column;
+	padding-right: 10px;
+	align-items: center;
+}
+
